@@ -2,7 +2,6 @@
 
 namespace App\EventSubscriber;
 
-use App\Event\GatewayEventNames;
 use App\Event\GatewayWebhookEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
@@ -11,11 +10,11 @@ final class GatewayEventSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents(): array
     {
         return [
-            GatewayEventNames::ON_CONNECTED => 'onConnected',
-            GatewayEventNames::ON_MESSAGE_RECEIVED => 'onMessageReceived',
-            GatewayEventNames::ON_MESSAGE_SENT => 'onMessageSent',
-            GatewayEventNames::ON_DISCONNECTED => 'onDisconnected',
-            GatewayEventNames::ON_UNKNOWN => 'onUnknown',
+            GatewayWebhookEvent::ON_CONNECTED => 'onConnected',
+            GatewayWebhookEvent::ON_MESSAGE_RECEIVED => 'onMessageReceived',
+            GatewayWebhookEvent::ON_MESSAGE_SENT => 'onMessageSent',
+            GatewayWebhookEvent::ON_DISCONNECTED => 'onDisconnected',
+            GatewayWebhookEvent::ON_UNKNOWN => 'onUnknown',
         ];
     }
 
@@ -55,4 +54,3 @@ final class GatewayEventSubscriber implements EventSubscriberInterface
         error_log(sprintf('[gateway] onUnknown type=%s transport=%s', $event->type, $event->transport));
     }
 }
-

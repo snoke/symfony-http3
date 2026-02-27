@@ -2,7 +2,6 @@
 
 namespace App\Controller;
 
-use App\Event\GatewayEventNames;
 use App\Event\GatewayWebhookEvent;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -52,10 +51,10 @@ final class GatewayController
         }
 
         $eventName = match ($type) {
-            'connected' => GatewayEventNames::ON_CONNECTED,
-            'message_received' => GatewayEventNames::ON_MESSAGE_RECEIVED,
-            'disconnected' => GatewayEventNames::ON_DISCONNECTED,
-            default => GatewayEventNames::ON_UNKNOWN,
+            'connected' => GatewayWebhookEvent::ON_CONNECTED,
+            'message_received' => GatewayWebhookEvent::ON_MESSAGE_RECEIVED,
+            'disconnected' => GatewayWebhookEvent::ON_DISCONNECTED,
+            default => GatewayWebhookEvent::ON_UNKNOWN,
         };
 
         $event = new GatewayWebhookEvent(
