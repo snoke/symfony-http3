@@ -9,10 +9,10 @@ TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy required fo
    docker compose up --build
    ```
 2. Verify:
-   - Gateway dev UI (WebTransport client): `http://localhost:8182/`
    - Gateway health: `http://localhost:8182/health`
-   - Symfony ping: `http://localhost:8183/api/ping`
+    - Symfony ping: `http://localhost:8183/api/ping`
+    - WebTransport demo UI (served by Symfony): `http://localhost:8183/demo/webtransport`
 3. WebTransport:
    - Server endpoint: `https://localhost:8444/`
-   - The dev UI pins the gateway's self-signed cert via `serverCertificateHashes`, so you don't need
+   - The demo UI pins the gateway's self-signed cert via `serverCertificateHashes`, so you don't need
      to trust a local CA.

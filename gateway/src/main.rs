@@ -15,8 +15,6 @@ async fn main() -> Result<()> {
 
     let http_port = env_u16("HTTP_PORT").unwrap_or(8080);
     let webtransport_port = env_u16("WEBTRANSPORT_PORT").unwrap_or(4433);
-    let public_webtransport_port = env_u16("PUBLIC_WEBTRANSPORT_PORT").unwrap_or(webtransport_port);
-
     // For local dev we generate a self-signed cert at runtime. The browser client pins it via
     // `serverCertificateHashes` so you don't need to trust a local CA.
     let identity = Identity::self_signed(["localhost", "127.0.0.1", "::1"])
@@ -30,18 +28,14 @@ async fn main() -> Result<()> {
 
     let webtransport_server =
         webtransport_server::WebTransportServer::new(identity, webtransport_port)?;
-    let http_server =
-        http_server::HttpServer::new(http_port, public_webtransport_port, &cert_digest).await?;
+    let http_server = http_server::HttpServer::new(http_port, &cert_digest).await?;
 
     info!(
         http_port = http_server.local_port(),
         webtransport_port = webtransport_server.local_port(),
         "servers started"
     );
-    info!(
-        "Open the local UI at: http://localhost:{} (docker-compose maps it to host port 8182 by default)",
-        public_port_hint(http_server.local_port(), 8182)
-    );
+    info!("HTTP health: GET /health, gateway info: GET /internal/info");
 
     tokio::select! {
         result = http_server.serve() => {
@@ -58,14 +52,3 @@ async fn main() -> Result<()> {
 fn env_u16(key: &str) -> Option<u16> {
     std::env::var(key).ok()?.parse::<u16>().ok()
 }
-
-fn public_port_hint(container_port: u16, default_host_port: u16) -> u16 {
-    // We can't reliably detect Docker port mappings from inside the container.
-    // This helper only keeps the log message readable.
-    if container_port == 8080 {
-        default_host_port
-    } else {
-        container_port
-    }
-}
-
