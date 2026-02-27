@@ -18,12 +18,6 @@ final class WebTransportDemoController extends AbstractController
         $info = $http->request('GET', rtrim($gatewayBase, '/') . '/internal/info')->toArray(false);
 
         $certBytes = $info['cert_digest_sha256_bytes'] ?? [];
-        if (is_string($certBytes)) {
-            // Backwards-compatible with older gateway JSON that returned a string like "[1,2,3]".
-            $certBytes = trim($certBytes);
-            $certBytes = trim($certBytes, "[]");
-            $certBytes = $certBytes === '' ? [] : array_map('intval', array_map('trim', explode(',', $certBytes)));
-        }
 
         return $this->render('demo/webtransport.html.twig', [
             'wt_url' => $wtUrl,
@@ -32,4 +26,3 @@ final class WebTransportDemoController extends AbstractController
         ]);
     }
 }
-

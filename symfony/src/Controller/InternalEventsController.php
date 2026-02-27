@@ -8,7 +8,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 final class InternalEventsController
 {
-    #[Route('/internal/ws/events', name: 'internal_events', methods: ['POST'])]
+    #[Route('/gateway/events', name: 'gateway_events', methods: ['POST'])]
     public function __invoke(Request $request): JsonResponse
     {
         return new JsonResponse([
@@ -17,4 +17,3 @@ final class InternalEventsController
         ]);
     }
 }
-
