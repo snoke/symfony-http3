@@ -5,11 +5,12 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Attribute\Route;
 
-class PingController
+final class PingController
 {
     #[Route('/api/ping', name: 'api_ping', methods: ['GET'])]
-    public function ping(): JsonResponse
+    public function __invoke(): JsonResponse
     {
         return new JsonResponse(['pong' => true]);
     }
 }
+

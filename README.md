@@ -10,8 +10,9 @@ TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy required fo
    ```
 2. Verify:
    - Gateway health: `http://localhost:8182/health`
-    - Symfony ping: `http://localhost:8183/api/ping`
-    - WebTransport demo UI (served by Symfony): `http://localhost:8183/demo/webtransport`
+   - Gateway info: `http://localhost:8182/internal/info`
+   - Symfony ping: `http://localhost:8183/api/ping`
+   - WebTransport demo UI (Twig): `http://localhost:8183/demo/webtransport`
 3. WebTransport:
    - Server endpoint: `https://localhost:8444/`
    - The demo UI pins the gateway's self-signed cert via `serverCertificateHashes`, so you don't need

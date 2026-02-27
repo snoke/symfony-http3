@@ -42,11 +42,23 @@ impl HttpServer {
 }
 
 fn build_router(cert_digest: &Sha256Digest) -> Router {
-    let cert_digest = cert_digest.fmt(Sha256DigestFmt::BytesArray);
+    let cert_bytes: Vec<u8> = cert_digest.as_ref().to_vec();
+    let cert_dotted_hex = cert_digest.fmt(Sha256DigestFmt::DottedHex);
+
+    let info_handler = {
+        let cert_bytes = cert_bytes.clone();
+        let cert_dotted_hex = cert_dotted_hex.clone();
+        move || {
+            let cert_bytes = cert_bytes.clone();
+            let cert_dotted_hex = cert_dotted_hex.clone();
+            async move { info(cert_bytes, cert_dotted_hex) }
+        }
+    };
+
     Router::new()
         .route("/health", get(health))
         .route("/api/ping", get(ping))
-        .route("/internal/info", get(move || async move { info(&cert_digest) }))
+        .route("/internal/info", get(info_handler))
 }
 
 async fn health() -> &'static str {
@@ -57,9 +69,9 @@ async fn ping() -> Json<serde_json::Value> {
     Json(json!({"pong": true}))
 }
 
-fn info(cert_digest_bytes_array: &str) -> Json<serde_json::Value> {
+fn info(cert_digest_bytes: Vec<u8>, cert_digest_dotted_hex: String) -> Json<serde_json::Value> {
     Json(json!({
-        "cert_digest_sha256_bytes": cert_digest_bytes_array,
-        "note": "cert digest is formatted as a JS Uint8Array initializer (bytes array) for convenience"
+        "cert_digest_sha256_bytes": cert_digest_bytes,
+        "cert_digest_sha256_dotted_hex": cert_digest_dotted_hex
     }))
 }
