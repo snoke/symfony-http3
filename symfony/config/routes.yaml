@@ -1,0 +1,10 @@
+api_ping:
+  path: /api/ping
+  controller: App\Controller\PingController::ping
+  methods: [GET]
+
+internal_events:
+  path: /internal/ws/events
+  controller: App\Controller\InternalEventsController::events
+  methods: [POST]
+

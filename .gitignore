@@ -1,0 +1,8 @@
+/.DS_Store
+
+/gateway/target
+
+/symfony/vendor
+/symfony/var
+/symfony/.env.local
+

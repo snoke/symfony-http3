@@ -1,0 +1,24 @@
+services:
+  gateway:
+    build: ./gateway
+    environment:
+      - RUST_LOG=info
+      # Port the browser should use for WebTransport on the host (docker port mapping).
+      - PUBLIC_WEBTRANSPORT_PORT=8444
+      - WEBTRANSPORT_PORT=4433
+      - HTTP_PORT=8080
+    ports:
+      # Local UI (serves a tiny test page + /health).
+      - "8182:8080"
+      # WebTransport runs over HTTP/3/QUIC (UDP). We map both TCP+UDP for convenience.
+      - "8444:4433"
+      - "8444:4433/udp"
+
+  symfony:
+    build: ./symfony
+    environment:
+      - APP_ENV=dev
+      - APP_DEBUG=1
+      - APP_SECRET=dev-secret
+    ports:
+      - "8183:8000"

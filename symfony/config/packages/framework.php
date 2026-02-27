@@ -1,0 +1,11 @@
+<?php
+
+return [
+    'framework' => [
+        'secret' => '%env(APP_SECRET)%',
+        'router' => [
+            'utf8' => true,
+        ],
+    ],
+];
+
