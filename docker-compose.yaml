@@ -6,6 +6,7 @@ services:
       - WEBTRANSPORT_PORT=4433
       - CERT_PEMFILE=/run/certs/dev_cert.pem
       - KEY_PEMFILE=/run/certs/dev_key.pem
+      - SYMFONY_WEBHOOK_URL=http://symfony:8000/gateway/events
     ports:
       # WebTransport runs over HTTP/3/QUIC (UDP). We map both TCP+UDP for convenience.
       - "8444:4433"
