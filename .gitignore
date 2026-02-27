@@ -2,7 +2,8 @@
 
 /gateway/target
 
+/certs
+
 /symfony/vendor
 /symfony/var
 /symfony/.env.local
-
