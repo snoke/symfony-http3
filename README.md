@@ -4,16 +4,18 @@ This repo is a scaffold for a Symfony backend + Rust gateway setup where the Rus
 TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy required for dev).
 
 ## Run (dev)
-1. Start:
+1. Generate dev certs (self-signed, used by the gateway):
+   ```bash
+   ./scripts/gen_dev_certs.sh
+   ```
+2. Start:
    ```bash
    docker compose up --build
    ```
-2. Verify:
-   - Gateway health: `http://localhost:8182/health`
-   - Gateway info: `http://localhost:8182/internal/info`
+3. Verify:
    - Symfony ping: `http://localhost:8183/api/ping`
    - WebTransport demo UI (Twig): `http://localhost:8183/demo/webtransport`
-3. WebTransport:
+4. WebTransport:
    - Server endpoint: `https://localhost:8444/`
    - The demo UI pins the gateway's self-signed cert via `serverCertificateHashes`, so you don't need
      to trust a local CA.

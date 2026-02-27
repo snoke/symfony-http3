@@ -4,13 +4,14 @@ services:
     environment:
       - RUST_LOG=info
       - WEBTRANSPORT_PORT=4433
-      - HTTP_PORT=8080
+      - CERT_PEMFILE=/run/certs/dev_cert.pem
+      - KEY_PEMFILE=/run/certs/dev_key.pem
     ports:
-      # Gateway HTTP (health + internal info endpoint).
-      - "8182:8080"
       # WebTransport runs over HTTP/3/QUIC (UDP). We map both TCP+UDP for convenience.
       - "8444:4433"
       - "8444:4433/udp"
+    volumes:
+      - ./certs:/run/certs:ro
 
   symfony:
     build: ./symfony
@@ -19,6 +20,8 @@ services:
       - APP_DEBUG=1
       - APP_SECRET=dev-secret
       - WT_URL=https://localhost:8444/
-      - GATEWAY_HTTP_BASE_URL=http://gateway:8080
+      - WT_CERT_PEMFILE=/run/certs/dev_cert.pem
     ports:
       - "8183:8000"
+    volumes:
+      - ./certs:/run/certs:ro
