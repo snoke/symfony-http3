@@ -54,7 +54,7 @@
 
       try {
         transport = new WebTransport(wtUrl, {
-          serverCertificateHashes: [{ algorithm: "sha-256", value: hash.buffer }],
+          serverCertificateHashes: [{ algorithm: "sha-256", value: hash }],
         });
       } catch (e) {
         log("Failed to create WebTransport: " + e);
@@ -102,4 +102,3 @@
     init();
   }
 })();
-
