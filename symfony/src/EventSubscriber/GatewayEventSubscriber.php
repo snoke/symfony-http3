@@ -1,0 +1,58 @@
+<?php
+
+namespace App\EventSubscriber;
+
+use App\Event\GatewayEventNames;
+use App\Event\GatewayWebhookEvent;
+use Symfony\Component\EventDispatcher\EventSubscriberInterface;
+
+final class GatewayEventSubscriber implements EventSubscriberInterface
+{
+    public static function getSubscribedEvents(): array
+    {
+        return [
+            GatewayEventNames::ON_CONNECTED => 'onConnected',
+            GatewayEventNames::ON_MESSAGE_RECEIVED => 'onMessageReceived',
+            GatewayEventNames::ON_MESSAGE_SENT => 'onMessageSent',
+            GatewayEventNames::ON_DISCONNECTED => 'onDisconnected',
+            GatewayEventNames::ON_UNKNOWN => 'onUnknown',
+        ];
+    }
+
+    public function onConnected(GatewayWebhookEvent $event): void
+    {
+        error_log(sprintf('[gateway] onConnected connection_id=%s transport=%s', $event->connectionId, $event->transport));
+    }
+
+    public function onMessageReceived(GatewayWebhookEvent $event): void
+    {
+        $payload = $event->payload ?? '';
+        if (strlen($payload) > 200) {
+            $payload = substr($payload, 0, 200).'...';
+        }
+
+        error_log(sprintf(
+            '[gateway] onMessageReceived connection_id=%s transport=%s payload=%s',
+            $event->connectionId,
+            $event->transport,
+            json_encode($payload, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE),
+        ));
+    }
+
+    public function onMessageSent(GatewayWebhookEvent $event): void
+    {
+        // Not used yet (would be Symfony -> Gateway -> Client).
+        error_log(sprintf('[gateway] onMessageSent connection_id=%s transport=%s', $event->connectionId, $event->transport));
+    }
+
+    public function onDisconnected(GatewayWebhookEvent $event): void
+    {
+        error_log(sprintf('[gateway] onDisconnected connection_id=%s transport=%s', $event->connectionId, $event->transport));
+    }
+
+    public function onUnknown(GatewayWebhookEvent $event): void
+    {
+        error_log(sprintf('[gateway] onUnknown type=%s transport=%s', $event->type, $event->transport));
+    }
+}
+
