@@ -28,7 +28,17 @@
 
   function init() {
     const { wtUrl, certBytes } = getConfig();
-    const hash = new Uint8Array(certBytes);
+    const options = {};
+    if (certBytes.length === 32) {
+      const hashBytes = new Uint8Array(certBytes);
+      const hashBuffer = hashBytes.buffer.slice(
+        hashBytes.byteOffset,
+        hashBytes.byteOffset + hashBytes.byteLength
+      );
+      options.serverCertificateHashes = [
+        { algorithm: "sha-256", value: hashBuffer },
+      ];
+    }
 
     let transport;
     let dgramWriter;
@@ -53,9 +63,7 @@
       log("Connecting to " + wtUrl);
 
       try {
-        transport = new WebTransport(wtUrl, {
-          serverCertificateHashes: [{ algorithm: "sha-256", value: hash }],
-        });
+        transport = new WebTransport(wtUrl, options);
       } catch (e) {
         log("Failed to create WebTransport: " + e);
         return;

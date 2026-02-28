@@ -7,7 +7,7 @@ services:
       - HTTP_API_PORT=8080
       - CERT_PEMFILE=/run/certs/dev_cert.pem
       - KEY_PEMFILE=/run/certs/dev_key.pem
-      - SYMFONY_WEBHOOK_URL=http://symfony:8000/gateway/events
+      - WEBHOOK_URL=http://symfony:8000/gateway/events
     ports:
       # WebTransport runs over HTTP/3/QUIC (UDP). We map both TCP+UDP for convenience.
       - "8444:4433"
@@ -25,6 +25,7 @@ services:
       - APP_SECRET=dev-secret
       - WT_URL=https://localhost:8444/
       - WT_CERT_PEMFILE=/run/certs/dev_cert.pem
+      - WT_DISABLE_PINNING=1
       - GATEWAY_HTTP_BASE_URL=http://gateway:8080
     ports:
       - "8183:8000"

@@ -13,12 +13,20 @@ final class WebTransportDemoController extends AbstractController
     public function __invoke(GatewayCertPinning $gateway): Response
     {
         $wtUrl = $_ENV['WT_URL'] ?? 'https://localhost:8444/';
-        $certBytes = $gateway->sha256DerBytes();
+        $disablePinning = filter_var($_ENV['WT_DISABLE_PINNING'] ?? '0', FILTER_VALIDATE_BOOLEAN);
+
+        if ($disablePinning) {
+            $certBytes = [];
+            $certHex = null;
+        } else {
+            $certBytes = $gateway->sha256DerBytes();
+            $certHex = $gateway->sha256DerHex();
+        }
 
         return $this->render('demo/webtransport.html.twig', [
             'wt_url' => $wtUrl,
             'cert_digest_bytes' => $certBytes,
-            'cert_digest_hex' => $gateway->sha256DerHex(),
+            'cert_digest_hex' => $certHex,
         ]);
     }
 }
