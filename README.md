@@ -1,4 +1,4 @@
-# Symfony HTTP3 Stack
+# Symfony HTTP3 Demo
 
 This repo is a scaffold for a Symfony backend + Rust gateway setup where the gateway terminates TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy).
 

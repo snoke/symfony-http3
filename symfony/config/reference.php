@@ -762,6 +762,16 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         ...<mixed>
  *     },
  * }
+ * @psalm-type SnokeHttp3Config = array{
+ *     route_prefix?: scalar|Param|null, // Default: "/gateway"
+ *     events_path?: scalar|Param|null, // Default: "/events"
+ *     event_type_map?: array<string, scalar|Param|null>,
+ *     publisher?: array{
+ *         base_url?: scalar|Param|null, // Default: "http://gateway:8080"
+ *         publish_path?: scalar|Param|null, // Default: "/internal/publish"
+ *     },
+ *     cert_pem_file?: scalar|Param|null, // Default: "/run/certs/dev_cert.pem"
+ * }
  * @psalm-type ConfigType = array{
  *     imports?: ImportsConfig,
  *     parameters?: ParametersConfig,
@@ -769,6 +779,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *     framework?: FrameworkConfig,
  *     twig?: TwigConfig,
  *     twig_extra?: TwigExtraConfig,
+ *     snoke_http3?: SnokeHttp3Config,
  *     "when@dev"?: array{
  *         imports?: ImportsConfig,
  *         parameters?: ParametersConfig,
@@ -776,6 +787,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         framework?: FrameworkConfig,
  *         twig?: TwigConfig,
  *         twig_extra?: TwigExtraConfig,
+ *         snoke_http3?: SnokeHttp3Config,
  *     },
  *     "when@prod"?: array{
  *         imports?: ImportsConfig,
@@ -784,6 +796,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         framework?: FrameworkConfig,
  *         twig?: TwigConfig,
  *         twig_extra?: TwigExtraConfig,
+ *         snoke_http3?: SnokeHttp3Config,
  *     },
  *     "when@test"?: array{
  *         imports?: ImportsConfig,
@@ -792,6 +805,7 @@ use Symfony\Component\Config\Loader\ParamConfigurator as Param;
  *         framework?: FrameworkConfig,
  *         twig?: TwigConfig,
  *         twig_extra?: TwigExtraConfig,
+ *         snoke_http3?: SnokeHttp3Config,
  *     },
  *     ...<string, ExtensionType|array{ // extra keys must follow the when@%env% pattern or match an extension alias
  *         imports?: ImportsConfig,

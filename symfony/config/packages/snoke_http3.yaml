@@ -1,0 +1,9 @@
+snoke_http3:
+  # Keep defaults, but make it explicit and easy to override.
+  route_prefix: /gateway
+  events_path: /events
+  publisher:
+    base_url: http://gateway:8080
+    publish_path: /internal/publish
+  cert_pem_file: /run/certs/dev_cert.pem
+

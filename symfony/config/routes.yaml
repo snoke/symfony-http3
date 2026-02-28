@@ -7,5 +7,9 @@
 # To list all registered routes, run the following command:
 #   bin/console debug:router
 
+snoke_http3:
+    resource: .
+    type: snoke_http3
+
 controllers:
     resource: routing.controllers

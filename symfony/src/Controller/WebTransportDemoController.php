@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use Snoke\Http3Bundle\Service\GatewayService;
+use Snoke\Http3Bundle\Service\GatewayCertPinning;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 final class WebTransportDemoController extends AbstractController
 {
     #[Route('/demo/webtransport', name: 'demo_webtransport', methods: ['GET'])]
-    public function __invoke(GatewayService $gateway): Response
+    public function __invoke(GatewayCertPinning $gateway): Response
     {
         $wtUrl = $_ENV['WT_URL'] ?? 'https://localhost:8444/';
         $certBytes = $gateway->sha256DerBytes();

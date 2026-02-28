@@ -214,11 +214,12 @@
             "dist": {
                 "type": "path",
                 "url": "../bundle",
-                "reference": "c59ddb67519397c9e9a0226a1df97f5e48dae9b3"
+                "reference": "b484145842de942f3c2c0bd767514dc1fec934f7"
             },
             "require": {
                 "ext-openssl": "*",
                 "php": ">=8.4",
+                "symfony/config": "^8.0",
                 "symfony/dependency-injection": "^8.0",
                 "symfony/event-dispatcher-contracts": "^3.0",
                 "symfony/http-client": "^8.0",

@@ -3,13 +3,13 @@
 namespace App\EventSubscriber;
 
 use Snoke\Http3Bundle\Event\GatewayWebhookEvent;
-use Snoke\Http3Bundle\Service\GatewayService;
+use Snoke\Http3Bundle\Contract\GatewayPublisherInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class GatewayEventSubscriber implements EventSubscriberInterface
 {
     public function __construct(
-        private readonly GatewayService $gateway,
+        private readonly GatewayPublisherInterface $publisher,
     ) {
     }
 
@@ -29,7 +29,11 @@ final class GatewayEventSubscriber implements EventSubscriberInterface
         error_log(sprintf('[gateway] onConnected connection_id=%s transport=%s', $event->connectionId, $event->transport));
 
         // Prove the return-path works: publish a welcome datagram back to the client.
-        $this->gateway->publishDatagram($event->connectionId, 'welcome from Symfony');
+        try {
+            $this->publisher->publishDatagram($event->connectionId, 'welcome from Symfony');
+        } catch (\Throwable $e) {
+            error_log(sprintf('[gateway] publish failed: %s', $e->getMessage()));
+        }
     }
 
     public function onMessageReceived(GatewayWebhookEvent $event): void
