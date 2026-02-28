@@ -1,7 +1,6 @@
-# Symfony + Rust WebTransport Gateway (Scaffold)
+# Symfony HTTP3 Stack
 
-This repo is a scaffold for a Symfony backend + Rust gateway setup where the Rust gateway terminates
-TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy required for dev).
+This repo is a scaffold for a Symfony backend + Rust gateway setup where the gateway terminates TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy).
 
 Clone (includes the Rust gateway submodule):
 ```bash
@@ -19,7 +18,6 @@ cd symfony-http3-gateway
    docker compose up --build
    ```
 3. Verify:
-   - Symfony ping: `http://localhost:8183/api/ping`
    - WebTransport demo UI (Twig): `http://localhost:8183/demo/webtransport`
 4. WebTransport:
    - Server endpoint: `https://localhost:8444/`
