@@ -28,7 +28,7 @@
   <div
     id="wt-config"
     data-wt-url="{{ wt_url }}"
-    data-cert-hashes='{{ cert_hashes|json_encode|raw }}'
+    data-cert-digest-bytes='{{ cert_digest_bytes|json_encode|raw }}'
   ></div>
 
   <script src="/demo/webtransport.js"></script>
