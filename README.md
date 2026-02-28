@@ -3,6 +3,12 @@
 This repo is a scaffold for a Symfony backend + Rust gateway setup where the Rust gateway terminates
 TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy required for dev).
 
+Clone (includes the Rust gateway submodule):
+```bash
+git clone --recurse-submodules git@github.com:snoke/symfony-http3-gateway.git
+cd symfony-http3-gateway
+```
+
 ## Run (dev)
 1. Generate dev certs (self-signed, used by the gateway):
    ```bash
