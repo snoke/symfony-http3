@@ -214,7 +214,7 @@
             "dist": {
                 "type": "path",
                 "url": "../bundle",
-                "reference": "b484145842de942f3c2c0bd767514dc1fec934f7"
+                "reference": "5af59ed37c812a740ae62071e786f6ab7fba5e60"
             },
             "require": {
                 "ext-openssl": "*",
