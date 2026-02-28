@@ -30,7 +30,7 @@ final class GatewayEventSubscriber implements EventSubscriberInterface
 
         // Prove the return-path works: publish a welcome datagram back to the client.
         try {
-            $this->publisher->publishDatagram($event->connectionId, 'welcome from Symfony');
+            $this->publisher->publish($event->connectionId, 'welcome from Symfony');
         } catch (\Throwable $e) {
             error_log(sprintf('[gateway] publish failed: %s', $e->getMessage()));
         }
