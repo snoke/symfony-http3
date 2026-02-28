@@ -28,9 +28,13 @@ This is a Symfony backend + Rust gateway scaffold setup where the gateway termin
    - The log should show: `Received datagram: welcome from Symfony`
      (sent from `symfony/src/EventSubscriber/GatewayEventSubscriber.php`, delivered via the gateway to the client over WebTransport/QUIC/HTTP‑3)
    
-      Note: this will fail by default if your browser is not configured to support HTTP/3 - see [Browser Flags](#browser-flags) below)
+   Note: If the demo fails to connect, it’s usually because:
+   - WebTransport is disabled in your browser
+   - HTTP/3 is blocked due to local certificate handling (e.g. mkcert in Firefox)
 
-      ![Demo UI](docs/demo.png)
+   See [Browser Flags](#browser-flags).
+
+![Demo UI](docs/demo.png)
 
 ## Browser Flags
 ### Chrome
