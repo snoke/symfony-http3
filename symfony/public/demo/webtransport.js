@@ -16,19 +16,23 @@
       throw new Error("Missing data-wt-url on #wt-config");
     }
 
-    let certBytes;
+    let certHashes;
     try {
-      certBytes = JSON.parse(el.dataset.certDigestBytes || "[]");
+      certHashes = JSON.parse(el.dataset.certHashes || "[]");
     } catch {
-      throw new Error("Invalid data-cert-digest-bytes JSON on #wt-config");
+      throw new Error("Invalid data-cert-hashes JSON on #wt-config");
     }
 
-    return { wtUrl, certBytes };
+    return { wtUrl, certHashes };
   }
 
   function init() {
-    const { wtUrl, certBytes } = getConfig();
-    const hash = new Uint8Array(certBytes);
+    const { wtUrl, certHashes } = getConfig();
+    const hashList = Array.isArray(certHashes[0]) ? certHashes : [certHashes];
+    const serverCertificateHashes = hashList.map((bytes) => ({
+      algorithm: "sha-256",
+      value: new Uint8Array(bytes),
+    }));
 
     let transport;
     let dgramWriter;
@@ -54,7 +58,7 @@
 
       try {
         transport = new WebTransport(wtUrl, {
-          serverCertificateHashes: [{ algorithm: "sha-256", value: hash }],
+          serverCertificateHashes,
         });
       } catch (e) {
         log("Failed to create WebTransport: " + e);
