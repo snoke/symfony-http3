@@ -15,7 +15,9 @@ services:
       - ./certs:/run/certs:ro
 
   symfony:
-    build: ./symfony
+    build:
+      context: .
+      dockerfile: symfony/Dockerfile
     environment:
       - APP_ENV=dev
       - APP_DEBUG=1

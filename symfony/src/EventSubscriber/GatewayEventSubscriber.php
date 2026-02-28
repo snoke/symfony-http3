@@ -2,7 +2,7 @@
 
 namespace App\EventSubscriber;
 
-use App\Event\GatewayWebhookEvent;
+use Snoke\Http3Bundle\Event\GatewayWebhookEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class GatewayEventSubscriber implements EventSubscriberInterface

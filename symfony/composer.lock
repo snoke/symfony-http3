@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3fee89b0241ed5e7b9e4308ea54ffff7",
+    "content-hash": "0add8eb6b9b6714e4aa9821f5a2b7ffe",
     "packages": [
         {
             "name": "psr/cache",
@@ -207,6 +207,37 @@
                 "source": "https://github.com/php-fig/log/tree/3.0.2"
             },
             "time": "2024-09-11T13:17:53+00:00"
+        },
+        {
+            "name": "snoke/symfony-http3-bundle",
+            "version": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": "../bundle",
+                "reference": "56daa815a91ae92db84ab5fbca26fd72506079f6"
+            },
+            "require": {
+                "php": ">=8.4",
+                "symfony/dependency-injection": "^8.0",
+                "symfony/event-dispatcher-contracts": "^3.0",
+                "symfony/http-foundation": "^8.0",
+                "symfony/http-kernel": "^8.0",
+                "symfony/routing": "^8.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "Snoke\\\\Http3Bundle\\\\": "src/"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Symfony bundle for receiving HTTP/3/WebTransport gateway webhooks.",
+            "transport-options": {
+                "symlink": true,
+                "relative": true
+            }
         },
         {
             "name": "symfony/cache",
@@ -3069,7 +3100,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "snoke/symfony-http3-bundle": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
@@ -3077,6 +3110,6 @@
         "ext-ctype": "*",
         "ext-iconv": "*"
     },
-    "platform-dev": [],
+    "platform-dev": {},
     "plugin-api-version": "2.9.0"
 }

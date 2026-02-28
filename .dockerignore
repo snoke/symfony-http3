@@ -1,0 +1,13 @@
+/.git
+/.gitignore
+/**/.DS_Store
+
+/certs
+/gateway
+/scripts
+
+/symfony/vendor
+/symfony/var
+/symfony/.env.local
+/symfony/.env.*.local
+
