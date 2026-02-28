@@ -214,12 +214,14 @@
             "dist": {
                 "type": "path",
                 "url": "../bundle",
-                "reference": "56daa815a91ae92db84ab5fbca26fd72506079f6"
+                "reference": "c59ddb67519397c9e9a0226a1df97f5e48dae9b3"
             },
             "require": {
+                "ext-openssl": "*",
                 "php": ">=8.4",
                 "symfony/dependency-injection": "^8.0",
                 "symfony/event-dispatcher-contracts": "^3.0",
+                "symfony/http-client": "^8.0",
                 "symfony/http-foundation": "^8.0",
                 "symfony/http-kernel": "^8.0",
                 "symfony/routing": "^8.0"
@@ -227,7 +229,7 @@
             "type": "symfony-bundle",
             "autoload": {
                 "psr-4": {
-                    "Snoke\\\\Http3Bundle\\\\": "src/"
+                    "Snoke\\Http3Bundle\\": "src/"
                 }
             },
             "license": [

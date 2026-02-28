@@ -18,7 +18,7 @@ cd symfony-http3-gateway
    docker compose up --build
    ```
 3. Verify:
-   - WebTransport demo UI (Twig): `http://localhost:8183/demo/webtransport`
+   - WebTransport demo UI: `http://localhost:8183/demo/webtransport`
 4. WebTransport:
    - Server endpoint: `https://localhost:8444/`
    - The demo UI pins the gateway's self-signed cert via `serverCertificateHashes`, so you don't need

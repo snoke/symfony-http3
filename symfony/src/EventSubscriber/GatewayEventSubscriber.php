@@ -3,10 +3,16 @@
 namespace App\EventSubscriber;
 
 use Snoke\Http3Bundle\Event\GatewayWebhookEvent;
+use Snoke\Http3Bundle\Service\GatewayService;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
 final class GatewayEventSubscriber implements EventSubscriberInterface
 {
+    public function __construct(
+        private readonly GatewayService $gateway,
+    ) {
+    }
+
     public static function getSubscribedEvents(): array
     {
         return [
@@ -21,6 +27,9 @@ final class GatewayEventSubscriber implements EventSubscriberInterface
     public function onConnected(GatewayWebhookEvent $event): void
     {
         error_log(sprintf('[gateway] onConnected connection_id=%s transport=%s', $event->connectionId, $event->transport));
+
+        // Prove the return-path works: publish a welcome datagram back to the client.
+        $this->gateway->publishDatagram($event->connectionId, 'welcome from Symfony');
     }
 
     public function onMessageReceived(GatewayWebhookEvent $event): void
