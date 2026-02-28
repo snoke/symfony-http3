@@ -7,9 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class WebTransportDemoController extends AbstractController
+final class DemoController extends AbstractController
 {
-    #[Route('/demo/webtransport', name: 'demo_webtransport', methods: ['GET'])]
+    #[Route('/demo', name: 'demo', methods: ['GET'])]
     public function __invoke(GatewayCertPinning $gateway): Response
     {
         $wtUrl = $_ENV['WT_URL'] ?? 'https://localhost:8444/';

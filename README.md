@@ -1,12 +1,12 @@
-# Symfony HTTP3 Demo
+# Symfony HTTP3
 
-This is a Symfony backend + Rust gateway scaffold demo setup where the gateway terminates TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy).
+This is a Symfony backend + Rust gateway scaffold setup where the gateway terminates TLS + HTTP/3 (QUIC) and speaks WebTransport directly (no Envoy/Caddy).
 
 ## Dev Setup
 1. Clone (includes the Rust gateway submodule):
    ```bash
-   git clone --recurse-submodules git@github.com:snoke/symfony-http3-gateway.git
-   cd symfony-http3-gateway
+   git clone --recurse-submodules git@github.com:snoke/symfony-http3.git
+   cd symfony-http3
    ```
 2. Install mkcert
    ```bash
@@ -22,14 +22,15 @@ This is a Symfony backend + Rust gateway scaffold demo setup where the gateway t
    docker compose up --build
    ```
 5. Verify:
-   - Open the demo UI: `http://localhost:8183/demo/webtransport`
+   - Open the demo UI: `http://localhost:8183/demo`
    - Click **Connect**
-   - In DevTools → Network, you should see an **HTTP/3 / WebTransport** session
+   - In DevTools → Network, you should see an **HTTP/3** session
    - The log should show: `Received datagram: welcome from Symfony`
-     (sent from `symfony/src/EventSubscriber/GatewayEventSubscriber.php`)
-   - Note: this will fail if the browser does not support HTTP/3 / WebTransport.
+     (sent from `symfony/src/EventSubscriber/GatewayEventSubscriber.php`, delivered via the gateway to the client over WebTransport/QUIC/HTTP‑3)
+   
+      Note: this will fail by default if your browser is not configured to support HTTP/3 - see [Browser Flags](#browser-flags) below)
 
-![Demo UI](docs/demo.png)
+      ![Demo UI](docs/demo.png)
 
 ## Browser Flags
 ### Chrome

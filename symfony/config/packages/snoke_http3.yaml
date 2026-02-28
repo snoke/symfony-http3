@@ -5,5 +5,3 @@ snoke_http3:
   publisher:
     base_url: http://gateway:8080
     publish_path: /internal/publish
-  cert_pem_file: /run/certs/dev_cert.pem
-
