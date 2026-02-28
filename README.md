@@ -12,7 +12,7 @@ cd symfony-http3-gateway
 ## Run (dev)
 1. Generate dev certs (self-signed, used by the gateway):
    ```bash
-   ./scripts/gen_dev_certs.sh
+   ./gateway/scripts/gen_dev_certs.sh
    ```
 2. Start:
    ```bash
