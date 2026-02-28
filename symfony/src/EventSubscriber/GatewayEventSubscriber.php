@@ -20,6 +20,7 @@ final class GatewayEventSubscriber implements EventSubscriberInterface
             GatewayWebhookEvent::ON_MESSAGE_RECEIVED => 'onMessageReceived',
             GatewayWebhookEvent::ON_MESSAGE_SENT => 'onMessageSent',
             GatewayWebhookEvent::ON_DISCONNECTED => 'onDisconnected',
+            GatewayWebhookEvent::ON_ERROR => 'onError',
             GatewayWebhookEvent::ON_UNKNOWN => 'onUnknown',
         ];
     }
@@ -60,6 +61,11 @@ final class GatewayEventSubscriber implements EventSubscriberInterface
     public function onDisconnected(GatewayWebhookEvent $event): void
     {
         error_log(sprintf('[gateway] onDisconnected connection_id=%s transport=%s', $event->connectionId, $event->transport));
+    }
+
+    public function onError(GatewayWebhookEvent $event): void
+    {
+        error_log(sprintf('[gateway] onError connection_id=%s transport=%s payload=%s', $event->connectionId, $event->transport, $event->payload ?? ''));
     }
 
     public function onUnknown(GatewayWebhookEvent $event): void
